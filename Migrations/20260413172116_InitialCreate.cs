@@ -18,7 +18,7 @@ namespace JobTracker.Api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Company = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobTracker.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260413154458_InitialCreate")]
+    [Migration("20260413172116_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -44,9 +44,8 @@ namespace JobTracker.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
