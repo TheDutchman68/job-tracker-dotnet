@@ -1,4 +1,3 @@
-using JobTracker.Api.Models;
 namespace JobTracker.Api.Models
 {
     public class Job
@@ -11,5 +10,6 @@ namespace JobTracker.Api.Models
         public int UserId { get; set; }
 
         public User User { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
