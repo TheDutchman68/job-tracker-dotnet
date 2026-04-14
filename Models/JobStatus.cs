@@ -1,9 +1,10 @@
-namespace JobTracker.Api.Models;
-
-public enum JobStatus
+namespace JobTracker.Api.Models
 {
-    Applied,
-    Interview,
-    Rejected,
-    Offer
+    public enum JobStatus
+    {
+        Applied,
+        Interview,
+        Rejected,
+        Offer
+    }
 }
