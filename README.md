@@ -5,6 +5,15 @@ A modern, secure and scalable **Job Application Tracker API** built with **ASP.N
 This backend powers a full-stack job tracking application with authentication, filtering, and user-specific data management.
 
 --- 
+## 🚀 Live Demo
+
+API:
+https://job-tracker-dotnet-api.onrender.com
+
+Swagger:
+https://job-tracker-dotnet-api.onrender.com/swagger
+
+---
 
 ## 🚀 Overview 
 
@@ -14,7 +23,7 @@ This API allows users to:
 - Manage their job applications (CRUD)
 - Filter and search jobs efficiently
 - Track application status (Applied, Interview, Offer, Rejected)
-- Access only their own data (secure, user-based isolation)
+- Access only their own data (secure user-based isolation)
 
 --- 
 
@@ -36,16 +45,18 @@ This API allows users to:
 
 - ASP.NET Core Web API (.NET 8)
 - Entity Framework Core
-- SQL Server (Docker)
+- SQL Server (Azure SQL for production, Docker for local development)
 - JWT Authentication
 - BCrypt (Password Hashing)
 - Swagger / OpenAPI
 
 --- 
 
-## Tools
+## 🧰 Tools
 - Git & GitHub
-- Azure (Backend Deployment)
+- Render (API hosting)
+- Azure SQL (cloud database)
+- Docker (local development)
 
 ## ⚙️ Getting Started
 
@@ -79,7 +90,8 @@ Then run:
 
 dotnet ef database update
 
-
+# Apply migrations
+dotnet ef database update
 
 # Run the API
 dotnet run
@@ -129,10 +141,11 @@ Authorization: YOUR_TOKEN
 
 - Building RESTful APIs with ASP.NET Core
 - Implementing JWT authentication and authorization
-- Securing user data with hashing (BCrypt)
+- Securing user data with BCrypt
 - Designing scalable backend architecture
 - Working with Entity Framework Core and migrations
-- Structuring a real-world backend project
+- Integrating a cloud database (Azure SQL)
+- Deploying a .NET API using Docker and Render
 - Implementing filtering and search at API level
 
 ---
@@ -140,10 +153,11 @@ Authorization: YOUR_TOKEN
 ## 🔮 Possible Improvements
 
 - Role-based authorization (Admin/User)
-- Pagination for large datasets
-- Advanced filtering & sorting
+- Pagination and sorting
 - Refresh tokens
 - Logging & monitoring
+- Rate limiting
+
 
 ---
 
