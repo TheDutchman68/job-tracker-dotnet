@@ -27,7 +27,7 @@ namespace JobTracker.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Job>>> GetJobs([FromQuery] string? status, [FromQuery] string? search)
+        public async Task<ActionResult<List<Job>>> GetJobs([FromQuery] JobStatus? status, [FromQuery] string? search)
         {
             var currentUserId = GetCurrentUserId();
 
@@ -35,10 +35,9 @@ namespace JobTracker.Api.Controllers
                 .Where(j => j.UserId == currentUserId)
                 .AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(status) &&
-                Enum.TryParse<JobStatus>(status, true, out var parsedStatus))
+            if (status.HasValue)
             {
-                query = query.Where(j => j.Status == parsedStatus);
+                query = query.Where(j => j.Status == status.Value);
             }
 
             if (!string.IsNullOrWhiteSpace(search))
