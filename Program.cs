@@ -71,7 +71,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         sqlOptions =>
         {
             sqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 5,
+                maxRetryCount: 10,
                 maxRetryDelay: TimeSpan.FromSeconds(10),
                 errorNumbersToAdd: null);
         }));
@@ -103,9 +103,47 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
+
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Urls.Add($"http://*:{port}");
 
+await WarmUpDatabaseAsync(app);
+
 app.Run();
 
+static async Task WarmUpDatabaseAsync(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var logger = scope.ServiceProvider
+        .GetRequiredService<ILoggerFactory>()
+        .CreateLogger("DatabaseWarmup");
+
+    const int maxAttempts = 12;
+
+    for (int attempt = 1; attempt <= maxAttempts; attempt++)
+    {
+        try
+        {
+            logger.LogInformation("Database warm-up attempt {Attempt}/{MaxAttempts}", attempt, maxAttempts);
+
+            await db.Database.CanConnectAsync();
+
+            logger.LogInformation("Database warm-up succeeded.");
+            return;
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Database warm-up failed on attempt {Attempt}/{MaxAttempts}", attempt, maxAttempts);
+
+            if (attempt == maxAttempts)
+            {
+                throw;
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
+        }
+    }
+}
 public partial class Program { }
